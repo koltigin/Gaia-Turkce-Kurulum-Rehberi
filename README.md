@@ -116,7 +116,7 @@ gaiad init $GAIA_NODENAME --chain-id $GAIA_CHAIN_ID
 
 ## Genesis ve Addrbook Dosyalarının İndirilmesi
 ```shell
-curl https://raw.githubusercontent.com/mmc6185/node-testnets/main/stride/GAIA/genesis.jso > ~/.gaia/config/genesis.json
+curl https://raw.githubusercontent.com/Stride-Labs/testnet/main/poolparty/gaia/gaia_genesis.json > ~/.gaia/config/genesis.json
 curl https://raw.githubusercontent.com/mmc6185/node-testnets/main/stride/GAIA/addrbook.json > ~/.gaia/config/addrbook.json
 ```
 
