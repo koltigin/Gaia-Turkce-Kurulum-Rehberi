@@ -234,7 +234,7 @@ gaiad query bank balances CUZDAN_ADRESINIZ --chain-id $GAIA_CHAIN_ID
 ## Senkronizasyonu Kontrol Etme
 `false` çıktısı almaldıkça bir sonraki yani validator oluşturma adımına geçmiyoruz.
 ```shell
-gaiad status 2&1  jq .SyncInfo
+gaiad status 2>&1 | jq .SyncInfo
 ```
 
 ## Validator Oluşturma
