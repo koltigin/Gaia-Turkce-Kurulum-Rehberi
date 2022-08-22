@@ -38,14 +38,14 @@ Cosmos Hub, [Cosmos SDK](https://github.com/cosmos/cosmos-sdk) kullanılarak olu
 
 # Gaia Türkçe Node Kurulum Rehberi
 
+## NOT
+Eğer Stride kurulu bir sunucuya kurulum yapacaksanız `Sistemi Güncelleme`, `Gerekli Kütüphanelerin Kurulması` ve `Go Kurulumu` adımlarını atlayabilirsiniz.
+
 ## Root Yetkisi Alma ve Root Dizinine Geçme
 ```shell
 sudo su
 cd $HOME
 ```
-
-## NOT
-Eğer Stride kurulu bir sunucuya kurulum yapacaksanız `Sistemi Güncelleme`, `Gerekli Kütüphanelerin Kurulması` ve `Go Kurulumu` adımlarını atlayabilirsiniz.
 
 ## Sistemi Güncelleme
 ```shell
@@ -74,19 +74,19 @@ go version
 
 ## Değişkenleri Yükleme
 aşağıda değiştirmeniz gereken yerleri yazıyorum.
-* `$NODENAME` validator adınız
-* `$WALLET` cüzdan adınız
+* `$GAIA_NODENAME` validator adınız
+* `$GAIA_WALLET` cüzdan adınız
 ```shell
-echo "export NODENAME=$NODENAME"  >> $HOME/.bash_profile
-echo "export WALLET=$WALLET" >> $HOME/.bash_profile
+echo "export GAIA_NODENAME=$GAIA_NODENAME"  >> $HOME/.bash_profile
+echo "export GAIA_WALLET=$GAIA_WALLET" >> $HOME/.bash_profile
 echo "export GAIA_PORT=23" >> $HOME/.bash_profile
 echo "export GAIA_CHAIN_ID=GAIA" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
 ```shell
-echo "export NODENAME=Bilge"  >> $HOME/.bash_profile
-echo "export WALLET=Bilge" >> $HOME/.bash_profile
+echo "export GAIA_NODENAME=Bilge"  >> $HOME/.bash_profile
+echo "export GAIA_WALLET=Bilge" >> $HOME/.bash_profile
 echo "export GAIA_PORT=23" >> $HOME/.bash_profile
 echo "export GAIA_CHAIN_ID=GAIA" >> $HOME/.bash_profile
 source $HOME/.bash_profile
@@ -111,7 +111,7 @@ gaiad config node tcp://localhost:${GAIA_PORT}657
 
 ## Uygulamayı Başlatma
 ```shell
-gaiad init $NODENAME --chain-id $GAIA_CHAIN_ID
+gaiad init $GAIA_NODENAME --chain-id $GAIA_CHAIN_ID
 ```
 
 ## Genesis ve Addrbook Dosyalarının İndirilmesi
@@ -209,15 +209,15 @@ systemctl restart gaiad && journalctl -fu gaiad -o cat
 
 ### Yeni Cüzdan Oluşturma
 Eğer Stride testnetine katılıyorsanız yeni cüzdan oluşturmanıza gerek yok.
-* `$WALLET` bölümünü değiştirmiyoruz kurulumun başında cüzdanımıza isim belirledik.
+* `$GAIA_WALLET` bölümünü değiştirmiyoruz kurulumun başında cüzdanımıza isim belirledik.
 ```shell 
-gaiad keys add $WALLET
+gaiad keys add $GAIA_WALLET
 ```  
 
 ### Var Olan Cüzdanı İçeri Aktarma
-* `$WALLET` bölümünü değiştirmiyoruz kurulumun başında cüzdanımıza isim belirledik.
+* `$GAIA_WALLET` bölümünü değiştirmiyoruz kurulumun başında cüzdanımıza isim belirledik.
 ```shell
-gaiad keys add $WALLET --recover
+gaiad keys add $GAIA_WALLET --recover
 ```
 
 
@@ -250,14 +250,14 @@ gaiad tx staking create-validator \
  --commission-rate=0.05 \
  --amount 1000000uatom \
  --pubkey=$(gaiad  tendermint show-validator) \
- --moniker=$NODENAME \
+ --moniker=$GAIA_NODENAME \
  --chain-id=$GAIA_CHAIN_ID \
  --details=Rues Community Supporter \
  --security-contact=E-POSTANIZ \
  --website=httpsforum.rues.info \
  --identity=XXXX1111XXXX1111 \
  --min-self-delegation=1000000 \ 
- --from=$WALLET
+ --from=$GAIA_WALLET
  ```  
 
 
@@ -317,7 +317,7 @@ curl icanhazip.com
 
 ### Peer Adresinizi Öğrenme
 ```shell
-echo $(gaiad tendermint show-node-id)@$(curl ifconfig.me)16656
+echo $(gaiad tendermint show-node-id)@$(curl ifconfig.me):${GAIA_PORT}656
 ```
 
 ### Cüzdanların Listesine Bakma
@@ -327,7 +327,7 @@ gaiad keys list
 
 ### Cüzdanı İçeri Aktarma
 ```shell
-gaiad keys add $WALLET --recover
+gaiad keys add $GAIA_WALLET --recover
 ```
 
 ### Cüzdanı Silme
@@ -342,32 +342,32 @@ gaiad query bank balances CUZDAN_ADRESI
 
 ### Bir Cüzdandan Diğer Bir Cüzdana Transfer Yapma
 ```shell
-gaiad tx bank send CUZDAN_ADRESI GONDERILECEK_CUZDAN_ADRESI 100000000ustrd
+gaiad tx bank send CUZDAN_ADRESI GONDERILECEK_CUZDAN_ADRESI 100000000uatom
 ```
 
 ### Proposal Oylamasına Katılma
 ```shell
-gaiad tx gov vote 1 yes --from $WALLET --chain-id=$GAIA_CHAIN_ID
+gaiad tx gov vote 1 yes --from $GAIA_WALLET --chain-id=$GAIA_CHAIN_ID
 ```
 
 ### Validatore Stake Etme  Delegate Etme
 ```shell
-gaiad tx staking delegate $VALOPER_ADDRESS 100000000utoi --from=$WALLET --chain-id=$GAIA_CHAIN_ID  --gas=auto
+gaiad tx staking delegate $VALOPER_ADDRESS 100000000utoi --from=$GAIA_WALLET --chain-id=$GAIA_CHAIN_ID  --gas=auto
 ```
 
 ### Mevcut Validatorden Diğer Validatore Stake Etme  Redelegate Etme
 ```shell
-gaiad tx staking redelegate MevcutValidatorAdresi StakeEdilecekYeniValidatorAdresi 100000000ustrd --from=$WALLET --chain-id=$GAIA_CHAIN_ID  --gas=auto
+gaiad tx staking redelegate MevcutValidatorAdresi StakeEdilecekYeniValidatorAdresi 100000000uatom --from=$GAIA_WALLET --chain-id=$GAIA_CHAIN_ID  --gas=auto
 ```
 
 ### Ödülleri Çekme
 ```shell
-gaiad tx distribution withdraw-all-rewards --from=$WALLET --chain-id=$GAIA_CHAIN_ID  --gas=auto
+gaiad tx distribution withdraw-all-rewards --from=$GAIA_WALLET --chain-id=$GAIA_CHAIN_ID  --gas=auto
 ```
 
 ### Komisyon Ödüllerini Çekme
 ```shell
-gaiad tx distribution withdraw-rewards VALIDATOR_ADRESI --from=$WALLET --commission --chain-id=$GAIA_CHAIN_ID
+gaiad tx distribution withdraw-rewards VALIDATOR_ADRESI --from=$GAIA_WALLET --commission --chain-id=$GAIA_CHAIN_ID
 ```
 
 ### Validator İsmini Değiştirme
@@ -375,14 +375,14 @@ gaiad tx distribution withdraw-rewards VALIDATOR_ADRESI --from=$WALLET --commiss
 gaiad tx staking edit-validator 
 --moniker=YENI_NODE_ADI 
 --chain-id=$GAIA_CHAIN_ID 
---from=$WALLET
+--from=$GAIA_WALLET
 ```
 
 ### Validatoru Jail Durumundan Kurtarma 
 ```shell
 gaiad tx slashing unjail 
   --broadcast-mode=block 
-  --from=$WALLET 
+  --from=$GAIA_WALLET 
   --chain-id=$GAIA_CHAIN_ID
   --gas=auto
 ```
@@ -415,8 +415,6 @@ rm -rf $(which gaiad)
 [Telegram Rues Node](https://t.meRuesNode)
 
 [Telegram Rues Node Chat](https://t.meRuesNodeChat)
-
-
 
 
 ### ⚡ — Documentation & Introduction
