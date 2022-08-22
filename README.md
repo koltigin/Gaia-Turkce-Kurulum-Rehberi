@@ -220,7 +220,14 @@ gaiad keys add $GAIA_WALLET
 gaiad keys add $GAIA_WALLET --recover
 ```
 
-
+### Cüzdan ve Valoper Adres Bilgilerine Ait Değişkenleri Kaydetme
+```shell
+GAIA_WALLET_ADDRESS=$(gaiad keys show $GAIA_WALLET -a)
+GAIA_VALOPER_ADDRESS=$(gaiad keys show $GAIA_WALLET --bech val -a)
+echo 'export GAIA_WALLET_ADDRESS='${GAIA_WALLET_ADDRESS} >> $HOME/.bash_profile
+echo 'export GAIA_VALOPER_ADDRESS='${GAIA_VALOPER_ADDRESS} >> $HOME/.bash_profile
+source $HOME/.bash_profile
+```
 * BU AŞAMADAN SONRA NODE'UMUZUN EŞLEŞMESİNİ BEKLİYORUZ.
 
 ## Faucet  Musluk
@@ -228,7 +235,7 @@ Test token almak için Discord'da [#token-faucet](https://discord.gg/HXgZSzstTV)
 
 ## Cüzdan Bakiyesini Kontrol Etme
 ```shell
-gaiad query bank balances CUZDAN_ADRESINIZ --chain-id $GAIA_CHAIN_ID
+gaiad query bank balances $GAIA_WALLET_ADDRESS --chain-id $GAIA_CHAIN_ID
 ```  
 
 ## Senkronizasyonu Kontrol Etme
@@ -337,12 +344,12 @@ gaiad keys delete CUZDAN_ADI
 
 ### Cüzdan Bakiyesine Bakma
 ```shell
-gaiad query bank balances CUZDAN_ADRESI
+gaiad query bank balances $GAIA_WALLET_ADDRESS
 ```
 
 ### Bir Cüzdandan Diğer Bir Cüzdana Transfer Yapma
 ```shell
-gaiad tx bank send CUZDAN_ADRESI GONDERILECEK_CUZDAN_ADRESI 100000000uatom
+gaiad tx bank send $GAIA_WALLET_ADDRESS GONDERILECEK_CUZDAN_ADRESI 100000000uatom
 ```
 
 ### Proposal Oylamasına Katılma
@@ -352,12 +359,12 @@ gaiad tx gov vote 1 yes --from $GAIA_WALLET --chain-id=$GAIA_CHAIN_ID
 
 ### Validatore Stake Etme  Delegate Etme
 ```shell
-gaiad tx staking delegate $VALOPER_ADDRESS 100000000utoi --from=$GAIA_WALLET --chain-id=$GAIA_CHAIN_ID  --gas=auto
+gaiad tx staking delegate $GAIA_VALOPER_ADDRESS 100000000utoi --from=$GAIA_WALLET --chain-id=$GAIA_CHAIN_ID  --gas=auto
 ```
 
 ### Mevcut Validatorden Diğer Validatore Stake Etme  Redelegate Etme
 ```shell
-gaiad tx staking redelegate MevcutValidatorAdresi StakeEdilecekYeniValidatorAdresi 100000000uatom --from=$GAIA_WALLET --chain-id=$GAIA_CHAIN_ID  --gas=auto
+gaiad tx staking redelegate $GAIA_VALOPER_ADDRESS StakeEdilecekYeniValidatorAdresi 100000000uatom --from=$GAIA_WALLET --chain-id=$GAIA_CHAIN_ID  --gas=auto
 ```
 
 ### Ödülleri Çekme
@@ -367,7 +374,7 @@ gaiad tx distribution withdraw-all-rewards --from=$GAIA_WALLET --chain-id=$GAIA_
 
 ### Komisyon Ödüllerini Çekme
 ```shell
-gaiad tx distribution withdraw-rewards VALIDATOR_ADRESI --from=$GAIA_WALLET --commission --chain-id=$GAIA_CHAIN_ID
+gaiad tx distribution withdraw-rewards $GAIA_VALOPER_ADDRESS --from=$GAIA_WALLET --commission --chain-id=$GAIA_CHAIN_ID
 ```
 
 ### Validator İsmini Değiştirme
