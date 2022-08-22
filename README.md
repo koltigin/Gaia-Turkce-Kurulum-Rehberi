@@ -83,7 +83,7 @@ echo "export GAIA_PORT=23" >> $HOME/.bash_profile
 echo "export GAIA_CHAIN_ID=GAIA" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
-
+Yukarıdaki kodlarda değişiklik yaptığınızda aşağıdaki gibi görünmeli.
 ```shell
 echo "export GAIA_NODENAME=Bilge"  >> $HOME/.bash_profile
 echo "export GAIA_WALLET=Bilge" >> $HOME/.bash_profile
