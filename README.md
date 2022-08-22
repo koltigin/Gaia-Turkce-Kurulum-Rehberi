@@ -391,11 +391,11 @@ gaiad tx slashing unjail
 ```shell
 systemctl stop gaiad && 
 systemctl disable gaiad && 
-rm etc/systemd/system/gaiad.service && 
+rm -r etc/systemd/system/gaiad.service && 
 systemctl daemon-reload && 
 cd $HOME && 
-rm -rf .gaia gaia && 
-rm -rf $(which gaiad)
+rm -r .gaia gaia && 
+rm -r $(which gaiad)
 ```
 
 
