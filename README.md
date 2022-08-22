@@ -22,7 +22,7 @@
 <br/>
 
 
-### 🤔 — Cosmos Hub'la Neden İlgilenmelisiniz?
+### 🤔 — Cosmos Hub ile Neden İlgilenmelisiniz?
 ___
 
 Cosmos Hub, [Cosmos SDK](https://github.com/cosmos/cosmos-sdk) kullanılarak oluşturulur ve `gaiad` (Gaia Daemon) adlı bir ikili dosyada derlenir. Cosmos Hub ve diğer tamamen bağımsız Cosmos SDK blok zincirleri, Blok Zincirler Arası İletişimi sağlayan [IBC](https://github.com/cosmos/ibc) adlı bir protokol kullanarak birbirleriyle etkileşime girer. Cosmos Hub'ın ne olduğunu anlamak için bu [giriş açıklamasını](https://hub.cosmos.network/main/hub-overview/overview.html) okuyabilirsiniz.
@@ -206,8 +206,7 @@ systemctl restart gaiad && journalctl -fu gaiad -o cat
 ```
 
 ## State Sync Çalışmazsa Yeni Peer Ekleme
-```shell 
-[Erhan kişisinden iletildi]
+```shell
 SEEDS=""
 PEERS="23478aeda62e91758ac0cd1e37d00cce394e3335@146.59.242.5:21656,a29526542ffa259e0315f728846c5118c915b3e6@45.67.217.3:23656,cdea72bf9f145677619696cb81bb6f56ef2df1d3@116.203.35.83:23656,55868105f05e9255259d41abd22ece102b185cec@65.21.0.10:23656,4618980b1c13a94d413157a3df2b7913784a44f9@81.5.117.14:23656,db5e32d6fb2f45b8198418db430f60aa687abb60@185.249.225.174:23656,0c111a68bdae46e947ac78deeed69bf8c40da400@178.128.54.2:23656,76a9c7a56981d0737accafdf7c1f2bf9dd2b91b8@20.84.76.87:23656,bad15577c487a740ae1b76e2861afc87418d3a46@37.120.178.232:26666,d5df12832b650fede46771cfbceb6e55683ccbb4@159.65.203.179:23656,1d48e49ed890df3c7c878441666a3779b5d2ac01@40.122.45.132:23656,a48819810d0dc99f11a590adf91becea98bf0c5f@194.5.152.107:23656,2be2bfa48e0fcdab68f3050d5e32ee1a58d5e516@207.244.244.25:23656,d7a725a14e7cd2d2f40c49c60ce682a647f2bd96@52.151.194.158:23656,e91c1a873de5c362e865019fcf51ecffe0e844f3@78.47.118.55:23656,360d191be810621e7a4c3b4650d0cfc83d297411@148.251.47.69:23656,e502a783e89b96a4c973a2623cb36cb28cca08c2@65.108.86.20:23656,aebe44f7f8120e64467914f1f4d5647f5f6670d5@20.55.89.205:23656,d9fe7b10bff442095e212ba8d15b069637e8597e@149.102.131.122:23656,294a944c1eca52eb15b3b7d375b4c0c42b1300a2@65.108.11.234:23656,033f317d879eecd733c9af2a6a2159cb4ea24150@78.47.217.149:23656,2b43910f82d55dc1ad2744658d4a0e2bf4b21f98@95.216.220.64:23656,36548633554e391db8609f48225bd4282b3221a7@194.163.146.8:23656,b01f4bf8d372a47e727d604dadd13ffbd2bfa8ce@95.216.210.104:23656,78a0aa68be8a944637e70aa655fbc9ab46192ecf@65.108.220.117:23656,f86ab676050b8582423f835c8d14eebd648e1de4@78.47.131.222:23656,86ab86053a325e4a55cd47904ee59d2a9a07a860@188.34.178.82:23656,a573c23191a5114b7c13c555227b9cd5dcc12fb4@65.108.249.29:23656,0ae9039c32e2814bc563b1199bc9da0314601503@80.240.25.87:26656,5f5ca9ac05878e93e65c48ac08311405a8ef5b2a@195.201.18.93:23656,61c71a4ec4120a15c2c9184cb27d75aaeefe264a@161.97.161.162:23656"
 sed -i -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.gaia/config/config.toml
